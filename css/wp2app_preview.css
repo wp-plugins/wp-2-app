@@ -1,0 +1,26 @@
+.center-vertical {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: relative;
+  top: 50%;
+}
+html {
+  margin-top: 0 !important;
+}
+* html body {
+  margin-top: 0 !important;
+}
+@media screen and (max-width: 782px) {
+  html {
+    margin-top: 0 !important;
+  }
+  * html body {
+    margin-top: 0 !important;
+  }
+}
+#wpadminbar {
+  display: none !important;
+}

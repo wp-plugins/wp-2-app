@@ -1,0 +1,103 @@
+// Mixins
+.rounded-corners (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -ms-border-radius: @radius;
+    -o-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.box-sizing(@type: content-box) {
+    -webkit-box-sizing: @type;
+    -moz-box-sizing: @type;
+    box-sizing: @type;
+}
+
+.rounded-corners-custom (@radius-top-left: 5px, @radius-top-right: 5px, @radius-bottom-left: 5px, @radius-bottom-right: 5px) {
+    border-top-left-radius: @radius-top-left;
+    border-top-right-radius: @radius-top-right;
+    border-bottom-left-radius: @radius-bottom-left;
+    border-bottom-right-radius: @radius-bottom-right;
+}
+
+.box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
+    -webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+    box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+
+.box-inner-glow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
+    -webkit-box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
+    box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
+}
+
+.border-inset (@width: 1px, @opacity: 40%) {
+    border-top: @width solid fadeout(@color-black, @opacity);
+    border-left: @width solid fadeout(@color-black, @opacity);
+    border-right: @width solid fadeout(@color-white, @opacity);
+    border-bottom: @width solid fadeout(@color-white, @opacity);
+}
+
+.border-outset (@width: 1px, @opacity: 40%) {
+    border-top: @width solid fadeout(@color-white, @opacity);
+    border-left: @width solid fadeout(@color-white, @opacity);
+    border-right: @width solid fadeout(@color-black, @opacity);
+    border-bottom: @width solid fadeout(@color-black, @opacity);
+}
+
+.bevel-top (@size: 1px, @opacity: 0.5) {
+    box-shadow: @size @size @size 0px rgba(255, 255, 255, @opacity) inset;
+}
+
+.gradient (@origin: left, @start: #ffffff, @stop: #000000) {
+    background-color: @start;
+    background-image: -webkit-linear-gradient(@origin, @start, @stop);
+    background-image: -moz-linear-gradient(@origin, @start, @stop);
+    background-image: -ms-linear-gradient(@origin, @start, @stop);
+    background-image: linear-gradient(@origin, @start, @stop);
+}
+
+.transition (@prop: all, @time: 0.05s, @ease: linear) {
+    -webkit-transition: @prop @time @ease;
+    -moz-transition: @prop @time @ease;
+    -o-transition: @prop @time @ease;
+    -ms-transition: @prop @time @ease;
+    transition: @prop @time @ease;
+}
+
+.transform-origin(@value) {
+    -webkit-transform-origin: @value;
+    -moz-transform-origin: @value;
+    -o-transform-origin: @value;
+    -ms-transform-origin: @value;
+    transform-origin: @value;
+}
+
+.transform-full (@string: '') {
+    -webkit-transform: @string;
+    -moz-transform: @string;
+    -o-transform: @string;
+    -ms-transform: @string;
+    transform: @string;
+}
+
+.text-shadow (@size: 1px, @color: #000000, @opacity: 70%) {
+    text-shadow: @size @size 0px fadeout(@color, @opacity);
+    -moz-text-shadow: @size @size 0px fadeout(@color, @opacity);
+    -webkit-text-shadow: @size @size 0px fadeout(@color, @opacity);
+}
+
+.inline-block () {
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+    *display: inline;
+}
+
+.center-vertical {
+    .transform-full(translateY(-50%));
+    position: relative;
+    top: 50%;
+}

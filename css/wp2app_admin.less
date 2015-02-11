@@ -1,0 +1,45 @@
+@import "mixins.less";
+
+.ui.grid {
+    margin: 0 !important;
+    .column {
+        .box-sizing(border-box);
+        padding-left: 0 !important;
+        //padding-right: 0 !important;
+        margin: 0;
+    }
+}
+.ui.button {
+    height: auto;
+}
+.ui.form {
+    label {
+        small {
+            float: right;
+        }
+    }
+}
+.hidden {
+    display: none;
+}
+.wp2app_thumb {
+    .rounded-corners(3px);
+    float: right;
+}
+#wp2app_iframewrap {
+    .rounded-corners(10px);
+    .box-sizing(border-box);
+    width: 260px;
+}
+#wp2app_iframemobile {
+    .rounded-corners(10px);
+    .box-sizing(border-box);
+    .inline-block;
+    .bevel-top();
+    padding: 20px 10px 50px 10px;
+    background-color: #333333;
+}
+#wp2app_iframe {
+    .box-sizing(border-box);
+    border: 1px solid rgba(255,255,255,0.5);
+}
