@@ -44,5 +44,8 @@ Any questions? Let us know and we'll support you!
 
 == Changelog ==
 
+= 1.1 =
+* Fixed a few small bugs
+
 = 1.0 =
 * First version of the plugin

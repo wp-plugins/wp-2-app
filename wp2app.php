@@ -1,14 +1,14 @@
 <?php
 /**
  * @package WP2App
- * @version 1.0
+ * @version 1.1
  */
 /*
 Plugin Name: WP 2 App
 Plugin URI: http://wordpress.org/plugins/wp2app/
 Description: Convert your WordPress site into a mobile app... the easy way!
 Author: Rappidly WordPress
-Version: 1.0
+Version: 1.1
 Author URI: http://wp2app.rappidly.net
 */
 
@@ -38,8 +38,8 @@ define("wp2app_apiurl", "http://wp2app.rappidly.net/api/");
 
 class wp2app_core
 {
-    private static $pluginsUrl = "";
-    private static $runcount = 0;
+    public static $pluginsUrl = "";
+    public static $runcount = 0;
 
     /**
      * @param string $appendToUri
@@ -47,7 +47,7 @@ class wp2app_core
      *
      * @return string
      */
-    private static function post_api($appendToUri, $post_params = array())
+    public static function post_api($appendToUri, $post_params = array())
     {
         $postdata = http_build_query($post_params);
 
@@ -69,11 +69,11 @@ class wp2app_core
     {
         // Set ID
         if (get_option("wp2app_id") === false) {
-            add_option("wp2app_id", self::make_id(), "", false);
+            add_option("wp2app_id", wp2app_core::make_id(), "", false);
         }
 
         // Call API first to fetch or add site
-        if (self::$runcount == 0) {
+        if (wp2app_core::$runcount == 0) {
             $result = file_get_contents(wp2app_apiurl . "site/activate/" . get_option("wp2app_id") . "?siteUrl=" . urlencode(site_url()));
         }
 
@@ -82,7 +82,7 @@ class wp2app_core
             add_option("wp2app_status", "new", "", false);
         }
 
-        self::$runcount++;
+        wp2app_core::$runcount++;
     }
 
     /**
@@ -122,7 +122,7 @@ class wp2app_core
      */
     public static function init()
     {
-        self::$pluginsUrl = plugins_url("wp2app");
+        wp2app_core::$pluginsUrl = plugins_url("wp2app");
 
         // Local detection
         if (preg_match("/localhost/i", $_SERVER["SERVER_NAME"])) {
@@ -139,10 +139,10 @@ class wp2app_core
         } elseif (isset($_GET["wp2app_inapp"])) {
 
             add_action("wp_head", function() {
-                echo '<link href="'.self::$pluginsUrl.'/css/wp2app_inapp.css" type="text/css" rel="stylesheet">';
-                echo '<script src="'.self::$pluginsUrl.'/vendors/fastclick.js" type="text/javascript"></script>';
+                echo '<link href="'.wp2app_core::$pluginsUrl.'/css/wp2app_inapp.css" type="text/css" rel="stylesheet">';
+                echo '<script src="'.wp2app_core::$pluginsUrl.'/vendors/fastclick.js" type="text/javascript"></script>';
                 wp_enqueue_script('jquery');
-                echo '<script src="'.self::$pluginsUrl.'/js/app.js" type="text/javascript"></script>';
+                echo '<script src="'.wp2app_core::$pluginsUrl.'/js/app.js" type="text/javascript"></script>';
             });
 
             add_action("wp_footer", function() {
@@ -154,8 +154,8 @@ class wp2app_core
             register_deactivation_hook(__FILE__, array("wp2app_core", "deactivate"));
             register_uninstall_hook(__FILE__, array("wp2app_core", "uninstall"));
 
-            self::add_menu_item();
-            self::admin_wrap();
+            wp2app_core::add_menu_item();
+            wp2app_core::admin_wrap();
         }
     }
 
@@ -165,23 +165,23 @@ class wp2app_core
     public static function admin_wrap()
     {
         add_action('admin_head', function () {
-            echo '<link href="'.self::$pluginsUrl.'/css/wp2app_admin.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/button.min.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/icon.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/form.min.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/grid.min.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/label.min.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/list.min.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/loader.min.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/message.min.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/step.min.css" type="text/css" rel="stylesheet">';
-            echo '<link href="'.self::$pluginsUrl.'/vendors/semantic/components/segment.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/css/wp2app_admin.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/button.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/icon.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/form.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/grid.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/label.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/list.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/loader.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/message.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/step.min.css" type="text/css" rel="stylesheet">';
+            echo '<link href="'.wp2app_core::$pluginsUrl.'/vendors/semantic/components/segment.min.css" type="text/css" rel="stylesheet">';
 
             wp_enqueue_script('jquery');
         });
 
         add_action("admin_footer", function() {
-            echo '<script src="'.self::$pluginsUrl.'/js/admin.js" type="text/javascript"></script>';
+            echo '<script src="'.wp2app_core::$pluginsUrl.'/js/admin.js" type="text/javascript"></script>';
         });
     }
 
@@ -287,7 +287,7 @@ class wp2app_core
                 $success[] = "Settings saved... almost there!";
                 $currentstep++;
 
-                $result = self::post_api("site/update/".get_option("wp2app_id"), array(
+                $result = wp2app_core::post_api("site/update/".get_option("wp2app_id"), array(
                     "siteUrl" => site_url(),
                     "appName" => $_POST["appName"],
                     "appIconUrl" => get_option("wp2app_iconurl"),
